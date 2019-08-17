@@ -1,20 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import "./Navbar.scss";
+import "./Titlebar.scss";
 import defaultPP from "../../../assets/pp.png";
 
-const Navbar = props => {
+function Titlebar() {
 
   const logout = () => {
         console.log("Logout");
   };
 
   return (
-    <div className="navbar">
-      <i className="material-icons" onClick={props.onChange}>
-        menu
-      </i>
+    <div className="titlebar">
       <div className="brand-logo">
         <Link to="/">
           <h3>GE Horas Extra</h3>
@@ -29,4 +26,4 @@ const Navbar = props => {
   );
 };
 
-export default Navbar;
+export default Titlebar;

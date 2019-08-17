@@ -1,42 +1,48 @@
-import React, { useState } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 
-import Navbar from "./Navbar/Navbar";
-import Sidebar from "./Sidebar/Sidebar";
+import BottomNavigation from "@material-ui/core/BottomNavigation";
+import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
+
+import Titlebar from "./Titlebar/Titlebar";
 import LayoutRouter from "./LayoutRouter";
 /* Styles */
 import "./Layout.scss";
 
 function Layout() {
-  const [sidebarPos, setSidebarPos] = useState(1);
+  const [value, setValue] = React.useState("dashboard");
 
-  const handleSidebar = () => {
-    if (sidebarPos < 2) {
-      setSidebarPos(sidebarPos + 1);
-    } else {
-      setSidebarPos(0);
-    }
-  };
-
-  let sidebarClass = ["sidebar"];
-  let mainClass = ["main"];
-  if (sidebarPos === 1) {
-    sidebarClass.push("sidebarMin");
-    mainClass.push("mainMin");
-  }
-  if (sidebarPos === 2) {
-    sidebarClass.push("sidebarOpen");
-    mainClass.push("mainOpen");
+  function handleChange(event, newValue) {
+    console.log(newValue);
+    setValue(newValue);
   }
 
   return (
     <div className="layout">
-      <Navbar onChange={handleSidebar} />
-      <div className={sidebarClass.join(" ")}>
-        <Sidebar />
-      </div>
-      <div className={mainClass.join(" ")}>
+      <Titlebar />
+      <div className="main">
         <LayoutRouter />
       </div>
+      <BottomNavigation
+        value={value}
+        onChange={handleChange}
+        className="navbar"
+      >
+        <BottomNavigationAction
+          component={Link}
+          to="/historial"
+          label="Historial"
+          value="historial"
+          icon={<i className="material-icons">event</i>}
+        />
+        <BottomNavigationAction
+          component={Link}
+          to="/"
+          label="Dashboard"
+          value="dashboard"
+          icon={<i className="material-icons">dashboard</i>}
+        />
+      </BottomNavigation>
     </div>
   );
 }
