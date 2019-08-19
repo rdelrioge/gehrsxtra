@@ -1,0 +1,32 @@
+.addServicio {
+  background-color: #fefefe;
+  padding: 1em;
+  border-radius: 10px;
+  .header {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    button {
+      margin: auto;
+    }
+  }
+  .caseWO {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1em;
+  }
+  .actividad {
+    .actividadSel {
+      width: 100px;
+    }
+  }
+  .buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align-last: center;
+    margin: 1em 0;
+    justify-items: center;
+    span {
+      color: white;
+    }
+  }
+}

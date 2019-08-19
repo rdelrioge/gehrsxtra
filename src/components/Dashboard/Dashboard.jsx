@@ -3,6 +3,7 @@ import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import Fab from "@material-ui/core/Fab";
 
 import "./Dashboard.scss";
+import AddServicio from "./AddServicio/AddServicio";
 
 function Dashboard() {
   const [state, setState] = React.useState(false);
@@ -36,7 +37,7 @@ function Dashboard() {
         onClose={toggleDrawer(false)}
         onOpen={toggleDrawer(true)}
       >
-        <h1>ListaRight</h1>
+        <AddServicio onClose={toggleDrawer(false)} />
       </SwipeableDrawer>
     </div>
   );
