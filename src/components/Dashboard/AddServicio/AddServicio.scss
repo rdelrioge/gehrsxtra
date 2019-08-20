@@ -3,10 +3,8 @@
   padding: 1em;
   border-radius: 10px;
   .header {
-    display: grid;
-    grid-template-columns: 4fr 1fr;
-    button {
-      margin: auto;
+    h3 {
+      margin: 0;
     }
   }
   .caseWO {
@@ -15,9 +13,23 @@
     grid-gap: 1em;
   }
   .actividad {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-gap: 1em;
     .actividadSel {
-      width: 100px;
+      margin: auto 0;
     }
+  }
+  .times {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1em;
+  }
+  .preview {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1em;
+    text-align: center;
   }
   .buttons {
     display: grid;
