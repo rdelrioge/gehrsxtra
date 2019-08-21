@@ -1,4 +1,4 @@
-.signin {
+.signup {
   display: grid;
   grid-template-rows: 1fr 6fr 1fr;
   background-image: linear-gradient(
@@ -24,8 +24,8 @@
   .card {
     margin: auto;
     width: calc(12em + 40vmin);
-    height: calc(4em + 40vmin);
-    min-height: 20em;
+    height: calc(4em + 50vmin);
+    min-height: 30em;
     border-radius: 10px;
     background-color: rgba(0, 0, 0, 0.2);
     .cardheader {
@@ -39,8 +39,11 @@
       height: calc(100% - 63px);
       display: flex;
       flex-direction: column;
-      .emailinput,
-      .passwordInput {
+      .emailInput,
+      .passwordInput,
+      .firstNameInput,
+      .lastNameInput,
+      .sso {
         margin: auto 0 0 0;
         .MuiFormLabel-root.Mui-focused {
           color: lightgray;
@@ -49,6 +52,7 @@
           border-bottom: 2px solid lightgray;
         }
       }
+
       .errormsg {
         color: darkred;
         text-align: center;

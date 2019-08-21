@@ -3,7 +3,8 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 // Import Components
-import SignIn from "./components/SignIn/SignIn.jsx";
+import SignIn from "./components/SignIn/SignIn";
+import SignUp from "./components/SignUp/SignUp";
 // Import SCSS files
 import variables from "./index.scss";
 
@@ -13,6 +14,7 @@ function NoSigned() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/signin" component={SignIn} />
+          <Route exact path="/signup" component={SignUp} />
           <Route path="*" render={() => <Redirect to="/signin" />} />
         </Switch>
       </BrowserRouter>

@@ -19,6 +19,8 @@ import "./AddServicio.scss";
 
 function AddServicio(props) {
   const [user] = useContext(UserContext);
+  console.log(user);
+
   const [caso, setCase] = useState("");
   const [wo, setWo] = useState("");
   const [cliente, setCliente] = useState("");
@@ -31,16 +33,17 @@ function AddServicio(props) {
   const d = f.getDate();
   const h = f.getHours();
   let fechaIni;
+  // Si se abre la aplicación despues de media noche, poner en fechaInicial el dia de ayer
   if (h < 6) {
     fechaIni = new Date(y, m, d - 1, 0);
   } else {
     fechaIni = new Date(y, m, d, 0);
   }
   const [startDate, setStartDate] = useState(fechaIni);
-  const [startTime, setStartTime] = useState(new Date(y, m, d, 18));
-  const [endDate, setEndDate] = useState(new Date(y, m, d, 0));
+  const [startTime, setStartTime] = useState(new Date(y, m, d, 18)); // a las 18:00 hrs
+  const [endDate, setEndDate] = useState(f);
   const [endTime, setEndTime] = useState(f);
-
+  // Crear un nuevo Date Obj con las fechas y horas seleccionadas
   let yST = startDate.getFullYear();
   let moST = startDate.getMonth();
   let dST = startDate.getDate();
@@ -53,13 +56,11 @@ function AddServicio(props) {
   let hET = endTime.getHours();
   let mET = endTime.getMinutes();
   let objectET = new Date(yET, moET, dET, hET, mET);
-
+  // pasarlo a momentObj para realizar el calculo de diferencia de horas
   let momST = moment(objectST);
   let momET = moment(objectET);
   let horasextras = momET.diff(momST, "hours");
-  if (horasextras < 1) {
-    alert("Comprueba que la fecha y hora sean correctas");
-  }
+
   let dobles = 0;
   if (horasextras > 3) {
     dobles = 3;
@@ -70,6 +71,11 @@ function AddServicio(props) {
 
   const handleSubmit = ev => {
     ev.preventDefault();
+    if (horasextras < 1) {
+      alert("Comprueba que la fecha y hora sean correctas");
+    } else {
+      // TODO AQUI
+    }
     // db.collection("servicios")
     //   .add({
     //     caso,

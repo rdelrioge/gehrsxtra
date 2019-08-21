@@ -16,7 +16,6 @@ const Store = ({ children }) => {
         let serv = { ...servicio.data(), uid: servicio.id };
         myServicios.push(serv);
       });
-      console.log(myServicios);
       setServicios(myServicios);
     });
   }, []);

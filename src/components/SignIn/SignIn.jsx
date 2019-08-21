@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import firebase from "firebase/app";
 import {
   Card,
@@ -71,6 +72,9 @@ const SignIn = () => {
           <Button type="submit" fullWidth variant="contained" color="primary">
             Sign in
           </Button>
+          <Link className="linkto" to="/signup">
+            Sign up
+          </Link>
         </form>
       </Card>
       <p>
