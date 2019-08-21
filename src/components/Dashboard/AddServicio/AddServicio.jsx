@@ -19,8 +19,6 @@ import "./AddServicio.scss";
 
 function AddServicio(props) {
   const [user] = useContext(UserContext);
-  console.log(user);
-
   const [caso, setCase] = useState("");
   const [wo, setWo] = useState("");
   const [cliente, setCliente] = useState("");
@@ -49,16 +47,16 @@ function AddServicio(props) {
   let dST = startDate.getDate();
   let hST = startTime.getHours();
   let mST = startTime.getMinutes();
-  let objectST = new Date(yST, moST, dST, hST, mST);
+  let inicio = new Date(yST, moST, dST, hST, mST);
   let yET = endDate.getFullYear();
   let moET = endDate.getMonth();
   let dET = endDate.getDate();
   let hET = endTime.getHours();
   let mET = endTime.getMinutes();
-  let objectET = new Date(yET, moET, dET, hET, mET);
+  let final = new Date(yET, moET, dET, hET, mET);
   // pasarlo a momentObj para realizar el calculo de diferencia de horas
-  let momST = moment(objectST);
-  let momET = moment(objectET);
+  let momST = moment(inicio);
+  let momET = moment(final);
   let horasextras = momET.diff(momST, "hours");
 
   let dobles = 0;
@@ -74,19 +72,75 @@ function AddServicio(props) {
     if (horasextras < 1) {
       alert("Comprueba que la fecha y hora sean correctas");
     } else {
+      // obterner nombre del mes de fecha de inicio (moST)
+      let meses = [
+        "Enero",
+        "Febrero",
+        "Marzo",
+        "Abril",
+        "Mayo",
+        "Junio",
+        "Julio",
+        "Agosto",
+        "Septiembre",
+        "Octubre",
+        "Noviembre",
+        "Diciembre"
+      ];
+      let mes = meses[moST];
+      // obtener dia de la semana
+      let dias = [
+        "Domingo",
+        "Lunes",
+        "Martes",
+        "Miércoles",
+        "Jueves",
+        "Viernes",
+        "Sábado"
+      ];
+      let dia = dias[inicio.getDay()];
       // TODO AQUI
+      console.log({
+        caso,
+        wo,
+        cliente,
+        actividad,
+        descripcion,
+        inicio,
+        final,
+        fecha: inicio.getTime(),
+        horasextras,
+        dobles,
+        triples,
+        mes,
+        dia,
+        horario: hST + ":00-" + hET + ":00",
+        inge: user.displayName,
+        sso: user.sso
+      });
+      db.collection("servicios")
+        .add({
+          caso,
+          wo,
+          cliente,
+          actividad,
+          descripcion,
+          inicio,
+          final,
+          fecha: inicio.getTime(),
+          horasextras,
+          dobles,
+          triples,
+          mes,
+          dia,
+          horario: hST + ":00-" + hET + ":00",
+          inge: user.displayName,
+          sso: user.sso
+        })
+        .then(docRef => console.log("Doc written with ID: ", docRef.id))
+        .catch(err => console.log("Error addign doc: ", err));
+      props.onClose();
     }
-    // db.collection("servicios")
-    //   .add({
-    //     caso,
-    //     cliente,
-    //     actividad,
-    //     descripcion,
-    //     created: created.getTime(),
-    //     owner: user
-    //   })
-    //   .then(docRef => console.log("Doc written with ID: ", docRef.id))
-    //   .catch(err => console.log("Error addign doc: ", err));
   };
 
   const reset = () => {

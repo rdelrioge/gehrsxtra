@@ -10,15 +10,28 @@ const Store = ({ children }) => {
 
   // READ FOR servicios IN DB
   useEffect(() => {
-    db.collection("servicios").onSnapshot(data => {
-      let myServicios = [];
-      data.forEach(servicio => {
-        let serv = { ...servicio.data(), uid: servicio.id };
-        myServicios.push(serv);
+    db.collection("servicios")
+      .where("inge", "==", fb.auth().currentUser.displayName)
+      .onSnapshot(data => {
+        let myServicios = [];
+        data.forEach(servicio => {
+          let serv = { ...servicio.data(), uid: servicio.id };
+          myServicios.push(serv);
+        });
+        console.log(myServicios);
+        setServicios(myServicios);
       });
-      setServicios(myServicios);
-    });
   }, []);
+
+  db.collection("users")
+    .where("displayName", "==", user)
+    .onSnapshot(users => {
+      users.forEach(uss => {
+        let inge = { ...uss.data(), uid: uss.id };
+        console.log(inge);
+        setUser(inge);
+      });
+    });
 
   return (
     <UserContext.Provider value={[user, setUser]}>
