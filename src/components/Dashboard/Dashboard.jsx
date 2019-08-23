@@ -4,6 +4,8 @@ import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import Fab from "@material-ui/core/Fab";
 import Paper from "@material-ui/core/Paper";
 
+import { db } from "../../index";
+
 import "./Dashboard.scss";
 import AddServicio from "./AddServicio/AddServicio";
 
@@ -66,6 +68,28 @@ function Dashboard() {
     setState(open);
   };
 
+  let buttonPressTimer;
+  function btnPress(ser) {
+    buttonPressTimer = setTimeout(() => {
+      let res = window.confirm("Desea eliminar " + ser.wo);
+      if (res == true) {
+        // eliminar
+        db.collection("servicios")
+          .doc(ser.uid)
+          .delete()
+          .then(() => {
+            console.log(ser.wo + " deleted!");
+          });
+      } else {
+        alert("culo");
+      }
+    }, 1000);
+  }
+
+  function btnRelease() {
+    clearTimeout(buttonPressTimer);
+  }
+
   return (
     <div className="dashboard">
       <h2 className="periodo">
@@ -88,7 +112,12 @@ function Dashboard() {
             <ul>
               {delmes.map((serv, index) => {
                 return (
-                  <li key={index} className={index % 2 ? "odd" : "even"}>
+                  <li
+                    key={index}
+                    className={index % 2 ? "odd" : "even"}
+                    onTouchStart={e => btnPress(serv)}
+                    onTouchEnd={btnRelease}
+                  >
                     <div className="gridBody">
                       <span>{moment(serv.fecha).format("DD MMM")}</span>
                       <span>{serv.horario}</span>
