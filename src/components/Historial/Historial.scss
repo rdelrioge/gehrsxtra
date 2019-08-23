@@ -1,0 +1,71 @@
+.historial {
+  text-align: center;
+  width: 100%;
+  .details {
+    padding: 0;
+  }
+}
+
+.periodoHis {
+  font-size: 12px;
+  .gridHead {
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr 1fr 1fr 1fr;
+    grid-gap: 5px;
+    color: dimgray;
+    padding: 0 1em;
+  }
+  ul {
+    margin: 0;
+    padding: 0 1em 1em 1em;
+    overflow-y: scroll;
+    :nth-child(1) {
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+    :last-child {
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+
+    li {
+      list-style: none;
+      padding: 8px 0;
+      .gridBody {
+        text-decoration: none;
+        display: grid;
+        margin: 0;
+        grid-template-columns: 1fr 2fr 2fr 1fr 1fr 1fr;
+        grid-gap: 5px;
+        color: gray;
+        justify-items: center;
+        align-items: center;
+      }
+    }
+    li:hover {
+      background-color: #964bf9;
+      * {
+        color: white;
+      }
+    }
+    .odd {
+      background-color: white;
+    }
+    .even {
+      background-color: ghostwhite;
+    }
+  }
+}
+
+.oculto {
+  display: none;
+}
+@media only screen and (orientation: landscape) {
+  .oculto {
+    display: block;
+  }
+  .gridBody,
+  .gridHead {
+    grid-template-columns: 1fr 2fr 2fr 2fr 3fr 4fr 1fr 1fr 1fr !important;
+  }
+}

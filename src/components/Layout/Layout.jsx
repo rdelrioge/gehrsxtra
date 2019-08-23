@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
@@ -29,14 +29,14 @@ function Layout() {
         className="navbar"
       >
         <BottomNavigationAction
-          component={Link}
+          component={NavLink}
           to="/historial"
           label="Historial"
           value="historial"
           icon={<i className="material-icons">event</i>}
         />
         <BottomNavigationAction
-          component={Link}
+          component={NavLink}
           to="/"
           label="Dashboard"
           value="dashboard"

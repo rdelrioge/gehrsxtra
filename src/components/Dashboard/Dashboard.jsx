@@ -9,15 +9,12 @@ import { db } from "../../index";
 import "./Dashboard.scss";
 import AddServicio from "./AddServicio/AddServicio";
 
-import { ServiciosContext, UserContext } from "../../Store";
-import { createCoverageSummary } from "istanbul-lib-coverage";
+import { ServiciosContext } from "../../Store";
 
 function Dashboard() {
   moment.locale("es");
   const [state, setState] = useState(false);
   const [servicios] = useContext(ServiciosContext);
-  const [user] = useContext(UserContext);
-  // const [delmes, setDelMes] = useState([]);
 
   let d = new Date();
   let meses = [
@@ -71,8 +68,7 @@ function Dashboard() {
   let buttonPressTimer;
   function btnPress(ser) {
     buttonPressTimer = setTimeout(() => {
-      let res = window.confirm("Desea eliminar " + ser.wo);
-      if (res == true) {
+      if (window.confirm("Desea eliminar " + ser.wo)) {
         // eliminar
         db.collection("servicios")
           .doc(ser.uid)
@@ -80,8 +76,6 @@ function Dashboard() {
           .then(() => {
             console.log(ser.wo + " deleted!");
           });
-      } else {
-        alert("culo");
       }
     }, 1000);
   }
@@ -116,7 +110,7 @@ function Dashboard() {
                     key={index}
                     className={index % 2 ? "odd" : "even"}
                     onTouchStart={e => btnPress(serv)}
-                    onTouchEnd={btnRelease}
+                    onTouchEnd={e => btnRelease()}
                   >
                     <div className="gridBody">
                       <span>{moment(serv.fecha).format("DD MMM")}</span>
