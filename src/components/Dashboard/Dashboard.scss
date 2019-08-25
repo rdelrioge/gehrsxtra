@@ -1,3 +1,5 @@
+@import "../../index.scss";
+
 .dashboard {
   display: flex;
   text-align: center;
@@ -44,7 +46,8 @@
         }
       }
       li:hover {
-        background-color: #964bf9;
+        // background-color: #964bf9;
+        background-color: $secondary;
         * {
           color: white;
         }

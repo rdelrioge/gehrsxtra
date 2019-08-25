@@ -1,3 +1,5 @@
+@import "../../../index.scss";
+
 .titlebar {
   background: white;
   display: flex;
@@ -5,7 +7,8 @@
     margin: auto 0 auto 12px;
     padding: 10px;
     transition: transform 1s;
-    color: #46d0f7;
+    // color: #46d0f7;
+    // color: $primary;
     &:hover {
       background-color: rgba(0, 0, 0, 0.1);
       border-radius: 26px;
@@ -17,7 +20,8 @@
     div {
       text-decoration: none;
       h3 {
-        background: -webkit-linear-gradient(45deg, #46d0f7, #7d2ae8);
+        // background: -webkit-linear-gradient(45deg, #46d0f7, #7d2ae8);
+        background: -webkit-linear-gradient(45deg, $primary, $secondary);
         -webkit-text-fill-color: transparent;
         -webkit-background-clip: text;
       }
@@ -34,7 +38,8 @@
     p {
       padding-right: 1em;
       font-size: 0.8em;
-      color: #7d2ae8;
+      // color: #7d2ae8;
+      color: $primary;
       font-weight: bold;
       transition: all 0.5s;
     }

@@ -28,7 +28,7 @@ function Titlebar() {
     <div className="titlebar">
       <div className="brand-logo">
         <div>
-          <h3>GE Horas Extra</h3>
+          <h3>GE Overtime</h3>
         </div>
       </div>
       <span className="spacer" />

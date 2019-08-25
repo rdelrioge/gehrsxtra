@@ -1,21 +1,9 @@
+@import "../../index.scss";
+
 .signin {
   display: grid;
   grid-template-rows: 1fr 6fr 1fr;
-  background-image: linear-gradient(
-    to bottom,
-    #46d0f7,
-    #50c9f7,
-    #5cc1f6,
-    #69baf3,
-    #76b2ef,
-    #6fa8f1,
-    #6c9df1,
-    #6e92f0,
-    #647ff4,
-    #656af4,
-    #6e50f0,
-    #7d2ae8
-  );
+  background-image: linear-gradient(to bottom, $primary, $secondary);
   height: calc(100vh);
   text-align: center;
   h1 {

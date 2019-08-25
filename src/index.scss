@@ -1,12 +1,19 @@
+@font-face {
+  font-family: inspira;
+  src: local("inspira"), url("../src/assets/Inspira.ttf");
+}
 body {
   margin: 0;
   padding: 0;
   background: white;
-  font-family: "GE Inspira", sans-serif;
+}
+* {
+  font-family: "inspira", sans-serif;
 }
 /* Colors for theme */
-$primary: #46d0f7;
-$secondary: #7d2ae8;
+// $primary: #46d0f7;
+$primary: #57acf1;
+$secondary: #3a5f81;
 
 :export {
   primary: $primary;

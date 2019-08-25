@@ -32,7 +32,7 @@ const SignIn = () => {
 
   return (
     <div className="signin">
-      <h1>GE Horas Extra</h1>
+      <h1>GE Overtime</h1>
       <Card className="card">
         <CardHeader title="Sign In" className="cardheader" />
         <form onSubmit={handleSubmit}>

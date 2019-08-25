@@ -59,7 +59,7 @@ const SignUp = () => {
 
   return (
     <div className="signup">
-      <h1>GE Horas Extra</h1>
+      <h1>GE Overtime</h1>
       <Card className="card">
         <CardHeader title="Sign Up" className="cardheader" />
         <form onSubmit={handleSubmit}>
