@@ -12,11 +12,13 @@
     grid-template-columns: 1fr 1fr;
     grid-gap: 1em;
   }
-  .actividad {
+  .actividad,
+  .equipo {
     display: grid;
     grid-template-columns: 1fr 2fr;
     grid-gap: 1em;
-    .actividadSel {
+    .actividadSel,
+    .modalidad {
       margin: auto 0;
     }
   }

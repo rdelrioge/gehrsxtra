@@ -22,6 +22,8 @@ function AddServicio(props) {
   const [caso, setCase] = useState("");
   const [wo, setWo] = useState("");
   const [cliente, setCliente] = useState("");
+  const [modalidad, setModalidad] = useState("");
+  const [sid, setSid] = useState("");
   const [actividad, setActividad] = useState("");
   const [descripcion, setDescripcion] = useState("");
 
@@ -104,6 +106,8 @@ function AddServicio(props) {
         caso,
         wo,
         cliente,
+        modalidad,
+        sid,
         actividad,
         descripcion,
         inicio,
@@ -123,6 +127,8 @@ function AddServicio(props) {
           caso,
           wo,
           cliente,
+          modalidad,
+          sid,
           actividad,
           descripcion,
           inicio,
@@ -152,9 +158,9 @@ function AddServicio(props) {
       <div className="header">
         <h3> Nuevo Servicio </h3>
       </div>
-      <form onSubmit={handleSubmit} onReset={reset}>
+      <form className="form" onSubmit={handleSubmit} onReset={reset}>
         <div className="caseWO">
-          <FormControl margin="normal" required fullWidth>
+          <FormControl margin="normal" fullWidth>
             <InputLabel htmlFor="caso">Case</InputLabel>
             <Input
               id="caso"
@@ -164,7 +170,7 @@ function AddServicio(props) {
               value={caso}
             />
           </FormControl>
-          <FormControl margin="normal" required fullWidth>
+          <FormControl margin="normal" fullWidth>
             <InputLabel htmlFor="wo">Work Order</InputLabel>
             <Input
               id="wo"
@@ -185,6 +191,40 @@ function AddServicio(props) {
             value={cliente}
           />
         </FormControl>
+        <div className="equipo">
+          <FormControl className="modalidad" required>
+            <InputLabel htmlFor="modalidad">Modalidad</InputLabel>
+            <Select
+              value={modalidad}
+              onChange={e => setModalidad(e.target.value)}
+              input={
+                <Input
+                  id="modalidad"
+                  name="modalidad"
+                  autoComplete="modalidad"
+                />
+              }
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value="RM">RM</MenuItem>
+              <MenuItem value="CT">CT</MenuItem>
+              <MenuItem value="XR">XR</MenuItem>
+              <MenuItem value="XM">XM</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl margin="normal" fullWidth>
+            <InputLabel htmlFor="sid">SID</InputLabel>
+            <Input
+              id="sid"
+              name="sid"
+              autoComplete="sid"
+              onChange={e => setSid(e.target.value)}
+              value={sid}
+            />
+          </FormControl>
+        </div>
         <div className="actividad">
           <FormControl className="actividadSel" required>
             <InputLabel htmlFor="actividad">Actividad</InputLabel>
