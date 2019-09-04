@@ -10,6 +10,11 @@ import Periodo from "./Periodo";
 
 function Historial() {
   const [servicios] = useContext(ServiciosContext);
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleChange = panel => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
   // Buscar por los periodos en Servicios y pasarlo a un array
   const periodos = [
     ...new Set(
@@ -28,7 +33,11 @@ function Historial() {
         <div className="periodos">
           {periodos.map((periodo, index) => {
             return (
-              <ExpansionPanel key={index}>
+              <ExpansionPanel
+                key={index}
+                expanded={expanded === index}
+                onChange={handleChange(index)}
+              >
                 <ExpansionPanelSummary>{periodo}</ExpansionPanelSummary>
                 <ExpansionPanelDetails className="details">
                   <Periodo periodo={periodo} />

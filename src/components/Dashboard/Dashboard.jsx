@@ -3,17 +3,21 @@ import moment from "moment";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import Fab from "@material-ui/core/Fab";
 import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
 
 import { db } from "../../index";
 
 import "./Dashboard.scss";
 import AddServicio from "./AddServicio/AddServicio";
+import EditServicio from "../Historial/EditServicio/EditServicio";
 
 import { ServiciosContext } from "../../Store";
 
 function Dashboard() {
   moment.locale("es");
-  const [state, setState] = useState(false);
+  const [addDrawerState, setAddDrawerState] = useState(false);
+  const [editDrawerState, setEditDrawerState] = useState(false);
+  const [servtoedit, setServtoedit] = useState({});
   const [servicios] = useContext(ServiciosContext);
 
   let d = new Date();
@@ -53,7 +57,7 @@ function Dashboard() {
     return a.fecha - b.fecha;
   });
 
-  const toggleDrawer = open => event => {
+  const toggleAddDrawer = open => event => {
     if (
       event &&
       event.type === "keydown" &&
@@ -61,27 +65,48 @@ function Dashboard() {
     ) {
       return;
     }
-
-    setState(open);
+    setAddDrawerState(open);
+  };
+  const toggleEditDrawer = open => event => {
+    if (
+      event &&
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+    setEditDrawerState(open);
   };
 
   let buttonPressTimer;
   function btnPress(ser) {
     buttonPressTimer = setTimeout(() => {
-      if (window.confirm("Desea eliminar " + ser.wo)) {
-        // eliminar
-        db.collection("servicios")
-          .doc(ser.uid)
-          .delete()
-          .then(() => {
-            console.log(ser.wo + " deleted!");
-          });
-      }
+      setServtoedit(ser);
+      setEditDrawerState(true);
     }, 1000);
   }
 
   function btnRelease() {
     clearTimeout(buttonPressTimer);
+  }
+
+  function confirmDelete(ser) {
+    if (
+      window.confirm(
+        "Desea eliminar las " +
+          ser.horasextras +
+          " horas extra del día " +
+          moment(ser.fecha).format("DD MMM")
+      )
+    ) {
+      // eliminar
+      db.collection("servicios")
+        .doc(ser.uid)
+        .delete()
+        .then(() => {
+          console.log(ser.wo + " deleted!");
+        });
+    }
   }
 
   return (
@@ -102,6 +127,7 @@ function Dashboard() {
               <h3>Total</h3>
               <h3>Dobles</h3>
               <h3>Triples</h3>
+              <h3 className="oculto">Eliminar</h3>
             </div>
             <ul>
               {delmes.map((serv, index) => {
@@ -125,6 +151,15 @@ function Dashboard() {
                       <span> {serv.horasextras} </span>
                       <span> {serv.dobles} </span>
                       <span> {serv.triples ? serv.triples : "0"} </span>
+                      <div className="oculto">
+                        <Button
+                          onClick={e => confirmDelete(serv)}
+                          variant="contained"
+                          color="primary"
+                        >
+                          <i className="material-icons">delete</i>
+                        </Button>
+                      </div>
                     </div>
                   </li>
                 );
@@ -138,23 +173,37 @@ function Dashboard() {
           </p>
         )}
       </Paper>
-
-      {/*  */}
       <Fab
         color="secondary"
         aria-label="add"
         className="addBtn"
-        onClick={toggleDrawer(true)}
+        onClick={toggleAddDrawer(true)}
       >
         <i className="material-icons">add</i>
       </Fab>
       <SwipeableDrawer
         anchor="top"
-        open={state}
-        onClose={toggleDrawer(false)}
-        onOpen={toggleDrawer(true)}
+        open={addDrawerState}
+        onClose={toggleAddDrawer(false)}
+        onOpen={toggleAddDrawer(true)}
       >
-        <AddServicio onClose={toggleDrawer(false)} />
+        <AddServicio
+          title={"Nuevo"}
+          servicio={{}}
+          onClose={toggleAddDrawer(false)}
+        />
+      </SwipeableDrawer>
+      <SwipeableDrawer
+        anchor="top"
+        open={editDrawerState}
+        onClose={toggleEditDrawer(false)}
+        onOpen={toggleEditDrawer(true)}
+      >
+        <EditServicio
+          title={"Editar"}
+          serv={servtoedit}
+          onClose={toggleEditDrawer(false)}
+        />
       </SwipeableDrawer>
     </div>
   );

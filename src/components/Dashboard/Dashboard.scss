@@ -16,12 +16,14 @@
       grid-template-columns: 1fr 2fr 2fr 1fr 1fr 1fr;
       grid-gap: 5px;
       color: dimgray;
-      padding: 0 1em;
+      padding: 0 5px;
+      margin: 0 5px;
     }
     ul {
-      margin: 0;
-      padding: 0 1em 1em 1em;
+      margin: 0 0 1em 0;
+      padding: 0;
       overflow-y: scroll;
+      width: 100%;
       :nth-child(1) {
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
@@ -33,16 +35,20 @@
 
       li {
         list-style: none;
-        padding: 8px 0;
+        padding: 5px;
+        margin: 0 5px;
         .gridBody {
           text-decoration: none;
           display: grid;
-          margin: 0;
           grid-template-columns: 1fr 2fr 2fr 1fr 1fr 1fr;
           grid-gap: 5px;
           color: gray;
           justify-items: center;
           align-items: center;
+          button {
+            min-width: 0;
+            padding: 6px;
+          }
         }
       }
       li:hover {
@@ -73,8 +79,19 @@
   .oculto {
     display: block;
   }
+  .dashboard {
+    .paperList {
+      ul {
+        padding-bottom: 5em;
+      }
+    }
+  }
   .gridBody,
   .gridHead {
-    grid-template-columns: 1fr 2fr 2fr 2fr 3fr 4fr 1fr 1fr 1fr !important;
+    grid-gap: 3px;
+    grid-template-columns: 2fr 3fr 3fr 3fr 5fr 5fr 2fr 2fr 2fr 2fr !important;
+    h3 {
+      font-size: 12px;
+    }
   }
 }

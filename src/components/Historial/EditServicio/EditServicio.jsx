@@ -15,17 +15,19 @@ import {
 } from "@material-ui/pickers";
 
 import { db } from "../../../index";
-import "./AddServicio.scss";
+import "../../Dashboard/AddServicio/AddServicio.scss";
 
-function AddServicio(props) {
+function EditServicio(props) {
+  console.log(props);
+
   const [user] = useContext(UserContext);
-  const [caso, setCase] = useState("");
-  const [wo, setWo] = useState("");
-  const [cliente, setCliente] = useState("");
-  const [modalidad, setModalidad] = useState("");
-  const [sid, setSid] = useState("");
-  const [actividad, setActividad] = useState("");
-  const [descripcion, setDescripcion] = useState("");
+  const [caso, setCase] = useState(props.serv.caso);
+  const [wo, setWo] = useState(props.serv.wo);
+  const [cliente, setCliente] = useState(props.serv.cliente);
+  const [modalidad, setModalidad] = useState(props.serv.modalidad);
+  const [sid, setSid] = useState(props.serv.sid);
+  const [actividad, setActividad] = useState(props.serv.actividad);
+  const [descripcion, setDescripcion] = useState(props.serv.descripcion);
 
   const f = new Date();
   const y = f.getFullYear();
@@ -39,10 +41,10 @@ function AddServicio(props) {
   } else {
     fechaIni = new Date(y, m, d, 0);
   }
-  const [startDate, setStartDate] = useState(fechaIni);
-  const [startTime, setStartTime] = useState(new Date(y, m, d, 18)); // a las 18:00 hrs
-  const [endDate, setEndDate] = useState(f);
-  const [endTime, setEndTime] = useState(f);
+  const [startDate, setStartDate] = useState(props.serv.inicio.toDate());
+  const [startTime, setStartTime] = useState(props.serv.inicio.toDate()); // a las 18:00 hrs
+  const [endDate, setEndDate] = useState(props.serv.final.toDate());
+  const [endTime, setEndTime] = useState(props.serv.final.toDate());
   // Crear un nuevo Date Obj con las fechas y horas seleccionadas
   let yST = startDate.getFullYear();
   let moST = startDate.getMonth();
@@ -123,7 +125,8 @@ function AddServicio(props) {
         sso: user.sso
       });
       db.collection("servicios")
-        .add({
+        .doc(props.serv.uid)
+        .update({
           caso,
           wo,
           cliente,
@@ -192,7 +195,7 @@ function AddServicio(props) {
           />
         </FormControl>
         <div className="equipo">
-          <FormControl className="modalidad" required>
+          <FormControl className="modalidad">
             <InputLabel htmlFor="modalidad">Modalidad</InputLabel>
             <Select
               value={modalidad}
@@ -339,7 +342,7 @@ function AddServicio(props) {
             Cancelar
           </Button>
           <Button type="submit" variant="contained" color="primary">
-            Agregar
+            Editar
           </Button>
         </div>
       </form>
@@ -347,4 +350,4 @@ function AddServicio(props) {
   );
 }
 
-export default AddServicio;
+export default EditServicio;
