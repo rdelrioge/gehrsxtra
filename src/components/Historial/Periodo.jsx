@@ -1,5 +1,7 @@
 import React, { useContext, useState } from "react";
 import moment from "moment";
+import XLSX from "xlsx";
+import FileSaver from "file-saver";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import Button from "@material-ui/core/Button";
 
@@ -72,8 +74,50 @@ function Periodo(props) {
     }
   }
 
+  function exportar() {
+    console.log("Exportar OK");
+    console.log(delmes);
+    let wb = XLSX.utils.book_new();
+    wb.Props = {
+      Title: "Overtime",
+      Subject: "Test file",
+      Author: "RDRP",
+      CreatedDate: new Date()
+    };
+    wb.SheetNames.push("OverT");
+    let ws = XLSX.utils.json_to_sheet(delmes);
+    wb.Sheets["OverT"] = ws;
+    let wbOut = XLSX.write(wb, { bookType: "xlsx", type: "binary" });
+
+    function s2ab(s) {
+      let buf = new ArrayBuffer(s.length);
+      let view = new Uint8Array(buf);
+      for (let i = 0; i < s.length; i++) {
+        view[i] = s.charCodeAt(i) & 0xff;
+      }
+      return buf;
+    }
+
+    FileSaver.saveAs(
+      new Blob([s2ab(wbOut)], { type: "application/octet-stream" }),
+      "test.xlsx"
+    );
+
+    // XLSX.utils.book_append_sheet(new_workbook, worksheet, "SheetJS");
+    // XLSX.write(new_workbook, {
+    //   bookType: "xlsx",
+    //   bookSST: true,
+    //   type: "base64"
+    // });
+    // XLSX.writeFile(wb, fn || "SheetJSTableExport." + (type || "xlsx"));
+  }
   return (
     <div className="periodoHis">
+      <div className="exportar">
+        <Button onClick={exportar} color="secondary">
+          <i className="material-icons">cloud_download</i>
+        </Button>
+      </div>
       <div className="gridHead">
         <h3>Fecha</h3>
         <h3>Horario</h3>
@@ -121,6 +165,7 @@ function Periodo(props) {
           );
         })}
       </ul>
+
       <SwipeableDrawer
         anchor="top"
         open={drawerState}

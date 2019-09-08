@@ -14,6 +14,11 @@
 .periodoHis {
   font-size: 12px;
   width: 100%;
+  .exportar {
+    position: absolute;
+    top: 12px;
+    right: 0;
+  }
   .gridHead {
     display: grid;
     grid-template-columns: 1fr 2fr 2fr 1fr 1fr 1fr;
