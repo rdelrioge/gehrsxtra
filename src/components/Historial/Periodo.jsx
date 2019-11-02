@@ -75,18 +75,45 @@ function Periodo(props) {
   }
 
   function exportar() {
-    console.log("Exportar OK");
-    console.log(delmes);
     let wb = XLSX.utils.book_new();
-    wb.Props = {
-      Title: "Overtime",
-      Subject: "Test file",
-      Author: "RDRP",
-      CreatedDate: new Date()
-    };
-    wb.SheetNames.push("OverT");
-    let ws = XLSX.utils.json_to_sheet(delmes);
-    wb.Sheets["OverT"] = ws;
+    wb.SheetNames.push(delmes[0].periodo);
+    let newArray = [];
+    for (let i = 0; i < delmes.length; i++) {
+      newArray.push({
+        SSO: delmes[i].sso,
+        Nombre: delmes[i].inge,
+        Fecha:
+          delmes[i].dia + ", " + moment(delmes[i].fecha).format("DD MMM YYYY"),
+        Dia: delmes[i].dia,
+        "Horas extras": delmes[i].horasextras,
+        Dobles: delmes[i].dobles,
+        Triples: delmes[i].triples,
+        "Día de descanso / festivo":
+          delmes[i].dia == "Sábado" ? "día de descanso" : "NA",
+        "Legal Entity": "GE International Servicios Administrativos SA de CV",
+        Horario: delmes[i].horario,
+        Cliente: delmes[i].cliente,
+        Actividad: delmes[i].actividad + " - " + delmes[i].descripcion,
+        Orden: delmes[i].wo,
+        Case: delmes[i].caso
+      });
+    }
+    let ws = XLSX.utils.json_to_sheet(newArray);
+    console.log(JSON.parse(JSON.stringify(ws)));
+    let newws = {};
+
+    for (var key in ws) {
+      let keytostring = key.toString() + ":";
+      if (key == "!ref") {
+        newws["!ref"] = ws["!ref"];
+      } else {
+        keytostring.includes("1:")
+          ? (newws[key] = { ...ws[key], s: { font: { bold: true } } })
+          : (newws[key] = ws[key]);
+      }
+    }
+    console.log(newws);
+    wb.Sheets[delmes[0].periodo] = newws;
     let wbOut = XLSX.write(wb, { bookType: "xlsx", type: "binary" });
 
     function s2ab(s) {
@@ -100,17 +127,62 @@ function Periodo(props) {
 
     FileSaver.saveAs(
       new Blob([s2ab(wbOut)], { type: "application/octet-stream" }),
-      "test.xlsx"
+      delmes[0].periodo + " " + delmes[0].sso + ".xlsx"
     );
-
-    // XLSX.utils.book_append_sheet(new_workbook, worksheet, "SheetJS");
-    // XLSX.write(new_workbook, {
-    //   bookType: "xlsx",
-    //   bookSST: true,
-    //   type: "base64"
-    // });
-    // XLSX.writeFile(wb, fn || "SheetJSTableExport." + (type || "xlsx"));
   }
+
+  function exportar1() {
+    console.log("Exportar OK");
+    console.log(delmes);
+    let wb = XLSX.utils.book_new();
+    wb.Props = {
+      Title: "Overtime",
+      Subject: "Test file",
+      Author: "RDRP",
+      CreatedDate: new Date()
+    };
+    wb.SheetNames.push(delmes[0].periodo);
+    // TODO Ordenar JSON
+    let newArray = [];
+    for (let i = 0; i < delmes.length; i++) {
+      newArray.push({
+        SSO: delmes[i].sso,
+        Nombre: delmes[i].inge,
+        Fecha:
+          delmes[i].dia + ", " + moment(delmes[i].fecha).format("DD MMM YYYY"),
+        Dia: delmes[i].dia,
+        "Horas extras": delmes[i].horasextras,
+        Dobles: delmes[i].dobles,
+        Triples: delmes[i].triples,
+        "Día de descanso / festivo":
+          delmes[i].dia == "Sábado" ? "día de descanso" : "NA",
+        "Legal Entity": "GE International Servicios Administrativos SA de CV",
+        Horario: delmes[i].horario,
+        Cliente: delmes[i].cliente,
+        Actividad: delmes[i].actividad + " - " + delmes[i].descripcion,
+        Orden: delmes[i].wo,
+        Case: delmes[i].caso
+      });
+    }
+    let ws = XLSX.utils.json_to_sheet(newArray);
+    wb.Sheets[delmes[0].periodo] = ws;
+    let wbOut = XLSX.write(wb, { bookType: "xlsx", type: "binary" });
+
+    function s2ab(s) {
+      let buf = new ArrayBuffer(s.length);
+      let view = new Uint8Array(buf);
+      for (let i = 0; i < s.length; i++) {
+        view[i] = s.charCodeAt(i) & 0xff;
+      }
+      return buf;
+    }
+
+    FileSaver.saveAs(
+      new Blob([s2ab(wbOut)], { type: "application/octet-stream" }),
+      delmes[0].periodo + " " + delmes[0].sso + ".xlsx"
+    );
+  }
+
   return (
     <div className="periodoHis">
       <div className="exportar">

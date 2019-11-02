@@ -245,9 +245,9 @@ function EditServicio(props) {
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
-              <MenuItem value="PM">PM</MenuItem>
-              <MenuItem value="CM">CM</MenuItem>
-              <MenuItem value="Install">Install</MenuItem>
+              <MenuItem value="Preventivo">PM</MenuItem>
+              <MenuItem value="Correctivo">CM</MenuItem>
+              <MenuItem value="Instalación">Install</MenuItem>
               <MenuItem value="FMI">FMI</MenuItem>
             </Select>
           </FormControl>

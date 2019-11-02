@@ -208,10 +208,17 @@ function AddServicio(props) {
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
-              <MenuItem value="RM">RM</MenuItem>
+              <MenuItem value="AW">AW</MenuItem>
               <MenuItem value="CT">CT</MenuItem>
-              <MenuItem value="XR">XR</MenuItem>
+              <MenuItem value="MR">MR</MenuItem>
+              <MenuItem value="NM">NM</MenuItem>
+              <MenuItem value="PET">PET</MenuItem>
+              <MenuItem value="RP">RP</MenuItem>
+              <MenuItem value="UL">UL</MenuItem>
+              <MenuItem value="XF">XF</MenuItem>
               <MenuItem value="XM">XM</MenuItem>
+              <MenuItem value="XR">XR</MenuItem>
+              <MenuItem value="XV">XV</MenuItem>
             </Select>
           </FormControl>
           <FormControl margin="normal" fullWidth>
@@ -242,9 +249,9 @@ function AddServicio(props) {
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
-              <MenuItem value="PM">PM</MenuItem>
-              <MenuItem value="CM">CM</MenuItem>
-              <MenuItem value="Install">Install</MenuItem>
+              <MenuItem value="Preventivo">PM</MenuItem>
+              <MenuItem value="Correctivo">CM</MenuItem>
+              <MenuItem value="Instalación">Install</MenuItem>
               <MenuItem value="FMI">FMI</MenuItem>
             </Select>
           </FormControl>

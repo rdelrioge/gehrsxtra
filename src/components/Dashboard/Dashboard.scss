@@ -10,7 +10,6 @@
     display: flex;
     flex-direction: column;
     font-size: 12px;
-    overflow-y: scroll;
     .gridHead {
       display: grid;
       grid-template-columns: 1fr 2fr 2fr 1fr 1fr 1fr;
@@ -22,7 +21,6 @@
     ul {
       margin: 0 0 1em 0;
       padding: 0;
-      overflow-y: scroll;
       width: 100%;
       :nth-child(1) {
         border-top-left-radius: 8px;
